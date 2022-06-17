@@ -12,6 +12,7 @@ from os import urandom
 
 #just for our understanding to see output in block format#
 def blocks(data):
+    BLOCKLEN = 512
     split = [hexa(data[i:i+BLOCKLEN]) for i in range(0, len(data), BLOCKLEN)]
 
     return ' '.join(split)
@@ -51,7 +52,7 @@ class blowfish_encryption_cbc :
 
         cipher = Cipher(algorithms.Blowfish(key), modes.CBC(iv), backend = default_backend())
         blowfish_encrypt = cipher.encryptor()
-        cipher_text = blowfish_encrypt.update(padded_data) + des3_encrypt.finalize()
+        cipher_text = blowfish_encrypt.update(padded_data) + blowfish_encrypt.finalize()
 
         hexa_data = hexa(cipher_text)
         return hexa_data
@@ -87,7 +88,7 @@ class des1_encryption_cbc :
         padded_data = padder.update(plain_text) + padder.finalize()
 
         des_1_encrypt = DES.new(key, DES.MODE_CBC, iv=iv)
-        cipher_text = des_1_encrypt.encrypt(plain_text)
+        cipher_text = des_1_encrypt.encrypt(padded_data)
         hexa_data = hexa(cipher_text)
         return hexa_data
 
@@ -104,7 +105,7 @@ class camelia_encryption_cbc :
 
         cipher = Cipher(algorithms.Camellia(key), modes.CBC(iv), backend = default_backend())
         camelia_encrypt = cipher.encryptor()
-        cipher_text = camelia_encrypt.update(padded_data) + aes_encrypt.finalize()
+        cipher_text = camelia_encrypt.update(padded_data) + camelia_encrypt.finalize()
         hexa_data = hexa(cipher_text)
         return hexa_data
 
@@ -121,7 +122,7 @@ class SM4_encryption_cbc :
 
         cipher = Cipher(algorithms.SM4(key), modes.CBC(iv), backend = default_backend())
         SM4_encrypt = cipher.encryptor()
-        cipher_text = SM4_encrypt.update(padded_data) + aes_encrypt.finalize()
+        cipher_text = SM4_encrypt.update(padded_data) + SM4_encrypt.finalize()
         hexa_data = hexa(cipher_text)
         return hexa_data
 
@@ -138,7 +139,7 @@ class IDEA_encryption_cbc :
 
         cipher = Cipher(algorithms.IDEA(key), modes.CBC(iv), backend = default_backend())
         IDEA_encrypt = cipher.encryptor()
-        cipher_text = IDEA_encrypt.update(padded_data) + des3_encrypt.finalize()
+        cipher_text = IDEA_encrypt.update(padded_data) + IDEA_encrypt.finalize()
 
         hexa_data = hexa(cipher_text)
         return hexa_data
@@ -175,8 +176,8 @@ class blowfish_encryption_ecb :
         padded_data = padder.update(plain_text) + padder.finalize()
 
         cipher = Cipher(algorithms.Blowfish(key), modes.ECB(), backend = default_backend())
-        des3_encrypt = cipher.encryptor()
-        cipher_text = des3_encrypt.update(padded_data) + des3_encrypt.finalize()
+        blowfish_encrypt = cipher.encryptor()
+        cipher_text = blowfish_encrypt.update(padded_data) + blowfish_encrypt.finalize()
 
         hexa_data = hexa(cipher_text)
         return hexa_data
@@ -210,7 +211,7 @@ class des1_encryption_ecb :
         padded_data = padder.update(plain_text) + padder.finalize()
 
         des_1_encrypt = DES.new(key, DES.MODE_ECB)
-        cipher_text = des_1_encrypt.encrypt(plain_text)
+        cipher_text = des_1_encrypt.encrypt(padded_data)
         hexa_data = hexa(cipher_text)
         return hexa_data
 
@@ -228,7 +229,7 @@ class camelia_encryption_ecb :
 
         cipher = Cipher(algorithms.Camellia(key), modes.ECB(), backend = default_backend())
         camelia_encrypt = cipher.encryptor()
-        cipher_text = camelia_encrypt.update(padded_data) + aes_encrypt.finalize()
+        cipher_text = camelia_encrypt.update(padded_data) + camelia_encrypt.finalize()
         hexa_data = hexa(cipher_text)
         return hexa_data
 
@@ -244,7 +245,7 @@ class SM4_encryption_ecb :
 
         cipher = Cipher(algorithms.SM4(key), modes.ECB(), backend = default_backend())
         SM4_encrypt = cipher.encryptor()
-        cipher_text = SM4_encrypt.update(padded_data) + aes_encrypt.finalize()
+        cipher_text = SM4_encrypt.update(padded_data) + SM4_encrypt.finalize()
         hexa_data = hexa(cipher_text)
         return hexa_data
 
@@ -260,7 +261,7 @@ class IDEA_encryption_ecb :
 
         cipher = Cipher(algorithms.IDEA(key), modes.ECB(), backend = default_backend())
         IDEA_encrypt = cipher.encryptor()
-        cipher_text = IDEA_encrypt.update(padded_data) + des3_encrypt.finalize()
+        cipher_text = IDEA_encrypt.update(padded_data) + IDEA_encrypt.finalize()
 
         hexa_data = hexa(cipher_text)
         return hexa_data
