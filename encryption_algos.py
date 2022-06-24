@@ -10,12 +10,7 @@ from os import urandom
 
 
 
-#just for our understanding to see output in block format#
-def blocks(data):
-    BLOCKLEN = 512
-    split = [hexa(data[i:i+BLOCKLEN]) for i in range(0, len(data), BLOCKLEN)]
 
-    return ' '.join(split)
 
 #create a random key
 
@@ -92,7 +87,7 @@ class des1_encryption_cbc :
         hexa_data = hexa(cipher_text)
         return hexa_data
 
-class camelia_encryption_cbc :
+class camellia_encryption_cbc :
     BLOCKLEN = 16 #16 bytes
 
     def encryptor(self,plain_text, key) :
@@ -216,7 +211,7 @@ class des1_encryption_ecb :
         return hexa_data
 
 
-class camelia_encryption_ecb :
+class camellia_encryption_ecb :
     BLOCKLEN = 16 #16 bytes
 
     def encryptor(self,plain_text, key) :
